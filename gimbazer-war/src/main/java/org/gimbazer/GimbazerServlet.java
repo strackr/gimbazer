@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 public class GimbazerServlet extends HttpServlet {
 
@@ -17,18 +18,10 @@ public class GimbazerServlet extends HttpServlet {
         String requestString = URLDecoder.decode(
                 req.getRequestURI().replaceFirst("/", ""),
                 StandardCharsets.UTF_8.displayName());
-        StringBuilder responseBuilder = new StringBuilder();
-        for (char character : requestString.toCharArray()) {
-            if (Math.random() < FLIP_PROB) {
-                if (Character.isUpperCase(character)) {
-                    responseBuilder.append(Character.toLowerCase(character));
-                } else {
-                    responseBuilder.append(Character.toUpperCase(character));
-                }
-            } else {
-                responseBuilder.append(character);
-            }
-        }
-        resp.getWriter().println(responseBuilder.toString());
+
+        TextProcessor processor = new TextFlipperTextProcessor(FLIP_PROB, new Random());
+        String processedRequestString = processor.process(requestString);
+
+        resp.getWriter().println(processedRequestString);
     }
 }
