@@ -2,13 +2,13 @@ package org.gimbazer;
 
 import java.util.Random;
 
-public class TextFlipperTextProcessor implements TextProcessor {
+public class CaseFlipperTextProcessor implements TextProcessor {
 
     private final double flipProbability;
 
     private final Random random;
 
-    public TextFlipperTextProcessor(double flipProbability, Random random) {
+    public CaseFlipperTextProcessor(double flipProbability, Random random) {
         this.flipProbability = flipProbability;
         this.random = random;
     }
